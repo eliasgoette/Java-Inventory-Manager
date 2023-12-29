@@ -5,10 +5,10 @@ public class InventoryItem {
     private String name;
     private int quantity;
 
-    public InventoryItem(String n, int q) {
+    public InventoryItem(String name, int quantity) {
         this.id = "P " + Math.random();
-        this.name = n;
-        this.quantity = q;
+        this.name = name;
+        this.quantity = quantity;
     }
 
     public String getId() {
@@ -33,5 +33,10 @@ public class InventoryItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "id: " + this.id + "; name: " + this.name + "; quantity: " + this.quantity;
     }
 }

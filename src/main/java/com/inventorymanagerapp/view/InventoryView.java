@@ -51,7 +51,7 @@ public class InventoryView {
         StringBuilder inventoryListText = new StringBuilder("Current items in stock:\n");
 
         for (InventoryItem item : inventoryController.listInventoryItems()) {
-            inventoryListText.append(item).append("\n"); // Assuming InventoryItem has a meaningful toString()
+            inventoryListText.append(item).append("\n");
         }
 
         inventoryListTextArea.setText(inventoryListText.toString());
