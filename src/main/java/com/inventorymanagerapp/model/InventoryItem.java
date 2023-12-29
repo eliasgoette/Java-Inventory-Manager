@@ -6,6 +6,7 @@ public class InventoryItem {
     private int quantity;
 
     public InventoryItem(String n, int q) {
+        this.id = "P " + Math.random();
         this.name = n;
         this.quantity = q;
     }

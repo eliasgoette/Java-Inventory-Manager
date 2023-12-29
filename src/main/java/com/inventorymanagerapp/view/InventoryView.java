@@ -58,8 +58,10 @@ public class InventoryView {
     }
 
     private void addItem() {
-        InventoryItem item = new InventoryItem("", 2);
-        inventoryController.addInventoryItem(item);
+        // Create a placeholder item
+        InventoryItem newItem = new InventoryItem("Placeholder Item", 100);
+        inventoryController.addInventoryItem(newItem);
         updateInventoryList();
+        JOptionPane.showMessageDialog(frame, "Item added successfully!");
     }
 }
