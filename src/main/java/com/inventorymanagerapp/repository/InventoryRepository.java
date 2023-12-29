@@ -8,6 +8,6 @@ public interface InventoryRepository {
     List<InventoryItem> findAll();
 
     boolean create(InventoryItem item);
-    boolean update(String id, InventoryItem changes);
+    boolean update(String id, InventoryItem updatedItem);
     boolean delete(String id);
 }

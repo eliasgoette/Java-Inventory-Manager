@@ -5,6 +5,11 @@ public class InventoryItem {
     private String name;
     private int quantity;
 
+    public InventoryItem(String n, int q) {
+        this.name = n;
+        this.quantity = q;
+    }
+
     public String getId() {
         return this.id;
     }

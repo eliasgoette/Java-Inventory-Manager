@@ -60,10 +60,10 @@ public class SerializedFileInventoryRepository implements InventoryRepository {
     }
 
     @Override
-    public boolean update(String id, InventoryItem changes) {
+    public boolean update(String id, InventoryItem updatedItem) {
         try {
             if (inventoryMap.containsKey(id)) {
-                inventoryMap.replace(id, changes);
+                inventoryMap.replace(id, updatedItem);
                 saveInventory(); // Save the updated map to the file
             }
         } catch (Exception e) {

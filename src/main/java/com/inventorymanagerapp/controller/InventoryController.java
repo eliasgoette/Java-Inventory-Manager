@@ -11,12 +11,10 @@ public class InventoryController {
         inventoryRepository = repository;
     }
 
-    public void listInventoryItems() {
+    public List<InventoryItem> listInventoryItems() {
         List<InventoryItem> items = inventoryRepository.findAll();
 
-        for (InventoryItem inventoryItem : items) {
-            System.out.println(inventoryItem);
-        }
+        return items;
     }
 
     public void addInventoryItem(InventoryItem item) {
