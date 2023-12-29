@@ -7,7 +7,9 @@ import java.util.List;
 public class InventoryController {
     private InventoryRepository inventoryRepository;
 
-    public InventoryController() {}
+    public InventoryController(InventoryRepository repository) {
+        inventoryRepository = repository;
+    }
 
     public void listInventoryItems() {
         List<InventoryItem> items = inventoryRepository.findAll();
