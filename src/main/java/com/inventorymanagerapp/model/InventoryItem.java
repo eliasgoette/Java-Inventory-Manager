@@ -6,17 +6,13 @@ public class InventoryItem {
     private int quantity;
 
     public InventoryItem(String name, int quantity) {
-        this.id = "P " + Math.random();
+        this.id = System.currentTimeMillis() + "";
         this.name = name;
         this.quantity = quantity;
     }
 
     public String getId() {
         return this.id;
-    }
-    
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
