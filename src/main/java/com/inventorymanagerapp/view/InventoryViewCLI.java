@@ -25,17 +25,18 @@ public class InventoryViewCLI implements InventoryView {
         this.running = true;
 
         while (running) {
-            getUserInput();
+            displayStartMenu();
         }
     }
 
-    private void getUserInput() {
+    private void displayStartMenu() {
+        System.out.println("Inventory Manager Home");
         System.out.println("Type nothing and press [enter] for help");
         String input = scanner.nextLine();
 
         switch (input.toLowerCase()) {
             case "create":
-                // displayCreate();
+                displayCreate();
                 break;
 
             case "exit":
@@ -48,6 +49,27 @@ public class InventoryViewCLI implements InventoryView {
         }
     }
 
+    private void displayCreate() {
+        System.out.println();
+        System.out.println("Create item");
+
+        System.out.println();
+        System.out.println("Please enter name, then [enter]");
+        String name = scanner.nextLine();
+
+        System.out.println();
+        System.out.println("Please enter quantity, then [enter]");
+        int quantity = Integer.parseInt(scanner.nextLine());
+
+        System.out.println();
+        InventoryItem newItem = new InventoryItem(name, quantity);
+        System.out.println("Preview: " + newItem.toString());
+
+        // TODO: Confirmation y/n
+
+        displayReturnCommand();
+    }
+
     private void displayHelp() {
         System.out.println();
         System.out.println("Commands:");
@@ -57,6 +79,15 @@ public class InventoryViewCLI implements InventoryView {
         System.out.println("update => update item");
         System.out.println("del => delete item");
         System.out.println("exit => close application");
+
+        displayReturnCommand();
+    }
+
+    private void displayReturnCommand() {
+        System.out.println();
+        System.out.println("Press [enter] to return");
+        
+        scanner.nextLine();
         System.out.println();
     }
 
