@@ -65,9 +65,24 @@ public class InventoryViewCLI implements InventoryView {
         InventoryItem newItem = new InventoryItem(name, quantity);
         System.out.println("Preview: " + newItem.toString());
 
-        // TODO: Confirmation y/n
+        System.out.println("Confirm? [y/n]");
+        boolean confirmation = scanner.nextLine().toLowerCase().equals("y");
+        if(confirmation) {
+            // Create item using controller
+            this.inventoryController.addInventoryItem(newItem);
+            System.out.println("Item created");
+        }
+        else {
+            System.out.println("Item discarded");
+        }
 
-        displayReturnCommand();
+        System.out.println();
+        System.out.println("Create another item? [y/n]");
+        if(scanner.nextLine().toLowerCase().equals("y")) {
+            displayCreate();
+        }
+
+        System.out.println();
     }
 
     private void displayHelp() {

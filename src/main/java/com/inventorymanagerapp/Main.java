@@ -10,7 +10,7 @@ import main.java.com.inventorymanagerapp.view.InventoryViewGUI;
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            String filePath = "./";
+            String filePath = "./InventoryItemObjects.ser";
     
             SerializedFileInventoryRepository repository = new SerializedFileInventoryRepository(filePath);
             InventoryController controller = new InventoryController(repository);

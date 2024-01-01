@@ -1,10 +1,15 @@
 package main.java.com.inventorymanagerapp.model;
 
-public class InventoryItem {
+import java.io.Serializable;
+
+public class InventoryItem implements Serializable {
+    private static final long serialVersionUID = 1L;  // Unique identifier for serialization
+
     private String id;
     private String name;
     private int quantity;
 
+    // Constructor, getters, setters, and toString method remain the same
     public InventoryItem(String name, int quantity) {
         this.id = System.currentTimeMillis() + "";
         this.name = name;
