@@ -33,6 +33,6 @@ public class InventoryItem {
 
     @Override
     public String toString() {
-        return "id: " + this.id + "; name: " + this.name + "; quantity: " + this.quantity;
+        return "{ id: " + this.id + "; name: " + this.name + "; quantity: " + this.quantity + "; }";
     }
 }
