@@ -36,6 +36,7 @@ public class InventoryViewCLI implements InventoryView {
     }
 
     private void displayStartMenu() {
+        System.out.println();
         System.out.println("Inventory Manager Home");
         System.out.println("Type nothing and press [enter] for help");
         String input = scanner.nextLine();
@@ -79,7 +80,7 @@ public class InventoryViewCLI implements InventoryView {
         System.out.println("Please enter quantity, then [enter]");
         String quantityString = scanner.nextLine();
         int quantity = (quantityString != null && quantityString != "") 
-            ? Integer.parseInt(scanner.nextLine())
+            ? Integer.parseInt(quantityString)
             : 0;
 
         System.out.println();
@@ -195,17 +196,23 @@ public class InventoryViewCLI implements InventoryView {
 
         if(deleteId != null) {
             InventoryItem deleteItem = inventoryController.getItemById(deleteId);
-            System.out.println("Item: " + deleteItem.toString());
 
-            System.out.println("Confirm? [y/n]");
-            boolean confirmation = scanner.nextLine().toLowerCase().equals("y");
-            if(confirmation) {
-                // Delete item using controller
-                this.inventoryController.removeInventoryItem(deleteId);
-                System.out.println("Item deleted");
-            }
-            else {
-                System.out.println("Deletion cancelled");
+            if(deleteItem != null) {
+
+                System.out.println("Item: " + deleteItem.toString());
+    
+                System.out.println("Confirm? [y/n]");
+                boolean confirmation = scanner.nextLine().toLowerCase().equals("y");
+                if(confirmation) {
+                    // Delete item using controller
+                    this.inventoryController.removeInventoryItem(deleteId);
+                    System.out.println("Item deleted");
+                }
+                else {
+                    System.out.println("Deletion cancelled");
+                }
+            } else {
+                System.out.println("Item not found");
             }
         }
 
@@ -242,8 +249,13 @@ public class InventoryViewCLI implements InventoryView {
     public void updateInventoryList() {
         StringBuilder inventoryListText = new StringBuilder("Current items in stock:\n");
 
-        for (InventoryItem item : inventoryController.listInventoryItems()) {
-            inventoryListText.append(item).append("\n");
+        List<InventoryItem> items = inventoryController.listInventoryItems();
+        if(items != null && items.size() > 0) {
+            for (InventoryItem item : items) {
+                inventoryListText.append(item).append("\n");
+            }
+        } else {
+            inventoryListText.append("No items found");
         }
 
         System.out.println(inventoryListText);
