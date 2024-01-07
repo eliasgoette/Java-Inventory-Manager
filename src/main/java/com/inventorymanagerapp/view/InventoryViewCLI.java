@@ -29,6 +29,10 @@ public class InventoryViewCLI implements InventoryView {
         }
     }
 
+    public void stopApplication() {
+        running = false;
+    }
+
     private void displayStartMenu() {
         System.out.println("Inventory Manager Home");
         System.out.println("Type nothing and press [enter] for help");
@@ -40,7 +44,7 @@ public class InventoryViewCLI implements InventoryView {
                 break;
 
             case "exit":
-                running = false;
+                stopApplication();
                 break;
         
             default:
