@@ -43,6 +43,10 @@ public class InventoryViewCLI implements InventoryView {
                 displayCreate();
                 break;
 
+            case "del":
+                displayDelete();
+                break;
+
             case "exit":
                 stopApplication();
                 break;
@@ -89,6 +93,39 @@ public class InventoryViewCLI implements InventoryView {
         System.out.println();
     }
 
+    private void displayDelete() {
+        System.out.println();
+        System.out.println("Delete item");
+
+        System.out.println();
+        System.out.println("Please provide an ID to delete, then press [enter]");
+        String deleteId = scanner.nextLine();
+
+        if(deleteId != null) {
+            InventoryItem deleteItem = inventoryController.getItemById(deleteId);
+            System.out.println("Item: " + deleteItem.toString());
+
+            System.out.println("Confirm? [y/n]");
+            boolean confirmation = scanner.nextLine().toLowerCase().equals("y");
+            if(confirmation) {
+                // Delete item using controller
+                this.inventoryController.removeInventoryItem(deleteId);
+                System.out.println("Item deleted");
+            }
+            else {
+                System.out.println("Deletion cancelled");
+            }
+        }
+
+        System.out.println();
+        System.out.println("Delete another item? [y/n]");
+        if(scanner.nextLine().toLowerCase().equals("y")) {
+            displayDelete();
+        }
+
+        System.out.println();
+    }
+
     private void displayHelp() {
         System.out.println();
         System.out.println("Commands:");
@@ -118,13 +155,5 @@ public class InventoryViewCLI implements InventoryView {
         }
 
         System.out.println(inventoryListText);
-    }
-
-    public void addItem() {
-        // Create a placeholder item
-        InventoryItem newItem = new InventoryItem("Placeholder Item", 100);
-        inventoryController.addInventoryItem(newItem);
-        updateInventoryList();
-        System.out.println("Item added successfully!");
     }
 }

@@ -20,4 +20,13 @@ public class InventoryController {
     public void addInventoryItem(InventoryItem item) {
         inventoryRepository.create(item);
     }
+
+    public void removeInventoryItem(String id) {
+        inventoryRepository.delete(id);
+    }
+
+    public InventoryItem getItemById(String id) {
+        InventoryItem item = inventoryRepository.findById(id);
+        return item;
+    }
 }

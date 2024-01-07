@@ -25,7 +25,7 @@ public class InventoryViewGUI implements InventoryView {
         inventoryListTextArea = new JTextArea(10, 30);
         inventoryListTextArea.setEditable(false);
         JButton addButton = new JButton("Add Item");
-        addButton.addActionListener(e -> addItem());
+        addButton.addActionListener(e -> displayCreate());
 
         // Layout the components.
         BoxLayout boxlayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
@@ -57,11 +57,15 @@ public class InventoryViewGUI implements InventoryView {
         inventoryListTextArea.setText(inventoryListText.toString());
     }
 
-    public void addItem() {
+    public void displayCreate() {
         // Create a placeholder item
         InventoryItem newItem = new InventoryItem("Placeholder Item", 100);
         inventoryController.addInventoryItem(newItem);
         updateInventoryList();
         JOptionPane.showMessageDialog(frame, "Item added successfully!");
+    }
+
+    public void displayDelete() {
+        JOptionPane.showMessageDialog(frame, "Delete not implemented yet");
     }
 }

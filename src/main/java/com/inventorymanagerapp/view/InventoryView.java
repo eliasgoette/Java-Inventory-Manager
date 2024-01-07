@@ -8,5 +8,4 @@ public interface InventoryView {
     public void initializeUI();
     public void startApplication();
     public void updateInventoryList();
-    public void addItem();
 }
