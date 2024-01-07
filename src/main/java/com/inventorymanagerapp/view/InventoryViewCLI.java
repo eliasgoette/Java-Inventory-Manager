@@ -1,5 +1,7 @@
 package main.java.com.inventorymanagerapp.view;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import main.java.com.inventorymanagerapp.controller.InventoryController;
@@ -43,6 +45,14 @@ public class InventoryViewCLI implements InventoryView {
                 displayCreate();
                 break;
 
+            case "read":
+                displayRead();
+                break;
+
+            case "update":
+                displayUpdate();
+                break;
+
             case "del":
                 displayDelete();
                 break;
@@ -84,13 +94,45 @@ public class InventoryViewCLI implements InventoryView {
             System.out.println("Item discarded");
         }
 
-        System.out.println();
-        System.out.println("Create another item? [y/n]");
-        if(scanner.nextLine().toLowerCase().equals("y")) {
-            displayCreate();
-        }
+        displayReturnCommand("Create", () -> displayCreate());
+    }
 
+    private void displayRead() {
         System.out.println();
+        System.out.println("Read");
+    
+        List<InventoryItem> res;
+        System.out.println("Please enter ID or 'all' to read the complete inventory");
+        String id = scanner.nextLine().trim();
+    
+        if(id.equals("all")) {
+            res = inventoryController.listInventoryItems();
+        } else {
+            InventoryItem item = inventoryController.getItemById(id);
+            res = new ArrayList<>();
+            if (item != null) {
+                res.add(item);
+            }
+        }
+    
+        if(res != null && res.size() > 0) {
+            System.out.println("Matching item(s):");
+            for (InventoryItem inventoryItem : res) {
+                if (inventoryItem != null) {
+                    System.out.println(inventoryItem.toString());
+                } else {
+                    System.out.println("Error: Encountered a null item in the inventory list.");
+                }
+            }
+        } else {
+            System.out.println("No items match the condition");
+        }
+    
+        displayReturnCommand("Read", () -> displayRead());
+    }    
+
+    private void displayUpdate() {
+        //
     }
 
     private void displayDelete() {
@@ -117,13 +159,7 @@ public class InventoryViewCLI implements InventoryView {
             }
         }
 
-        System.out.println();
-        System.out.println("Delete another item? [y/n]");
-        if(scanner.nextLine().toLowerCase().equals("y")) {
-            displayDelete();
-        }
-
-        System.out.println();
+        displayReturnCommand("Delete", () -> displayDelete());
     }
 
     private void displayHelp() {
@@ -136,14 +172,20 @@ public class InventoryViewCLI implements InventoryView {
         System.out.println("del => delete item");
         System.out.println("exit => close application");
 
-        displayReturnCommand();
-    }
-
-    private void displayReturnCommand() {
         System.out.println();
         System.out.println("Press [enter] to return");
         
         scanner.nextLine();
+        System.out.println();
+    }
+
+    private void displayReturnCommand(String actionName, Runnable action) {
+        System.out.println();
+        System.out.println(actionName + " another item? [y/n]");
+        if(scanner.nextLine().toLowerCase().equals("y")) {
+            action.run();
+        }
+
         System.out.println();
     }
 
