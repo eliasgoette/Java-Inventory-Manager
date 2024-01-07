@@ -9,11 +9,15 @@ public class InventoryItem implements Serializable {
     private String name;
     private int quantity;
 
-    // Constructor, getters, setters, and toString method remain the same
     public InventoryItem(String name, int quantity) {
         this.id = System.currentTimeMillis() + "";
         this.name = name;
         this.quantity = quantity;
+    }
+
+    public InventoryItem(String id, String name, int quantity) {
+        this(name, quantity);
+        this.id = id;
     }
 
     public String getId() {

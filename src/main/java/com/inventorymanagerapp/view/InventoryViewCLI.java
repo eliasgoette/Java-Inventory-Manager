@@ -99,7 +99,7 @@ public class InventoryViewCLI implements InventoryView {
 
     private void displayRead() {
         System.out.println();
-        System.out.println("Read");
+        System.out.println("Read item(s)");
     
         List<InventoryItem> res;
         System.out.println("Please enter ID or 'all' to read the complete inventory");
@@ -132,7 +132,54 @@ public class InventoryViewCLI implements InventoryView {
     }    
 
     private void displayUpdate() {
-        //
+        System.out.println();
+        System.out.println("Update item");
+
+        System.out.println("Please enter the ID of the item to update and press [enter]");
+        String id = scanner.nextLine();
+        InventoryItem itemBefore = inventoryController.getItemById(id);
+
+        if(itemBefore != null) {
+            System.out.println("Current data: " + itemBefore.toString());
+
+            InventoryItem itemAfter = new InventoryItem(
+                itemBefore.getId(), 
+                itemBefore.getName(), 
+                itemBefore.getQuantity()
+            );
+
+            System.out.println();
+            System.out.println("Please enter new name, then [enter]");
+            System.out.println("Leave empty and press [enter] to keep old value");
+            String newName = scanner.nextLine();
+
+            System.out.println();
+            System.out.println("Please enter quantity, then [enter]");
+            System.out.println("Leave empty and press [enter] to keep old value");
+            String newQuantityString = scanner.nextLine();
+            int newQuantity = (newQuantityString != null && newQuantityString != "") 
+                ? Integer.parseInt(newQuantityString)
+                : itemBefore.getQuantity();
+                
+            System.out.println();
+            if(newName != null && newName != "") itemAfter.setName(newName);
+            itemAfter.setQuantity(newQuantity);
+
+            System.out.println("Preview: " + itemAfter.toString());
+
+            System.out.println("Confirm? [y/n]");
+            boolean confirmation = scanner.nextLine().toLowerCase().equals("y");
+            if(confirmation) {
+                // Update item using controller
+                this.inventoryController.updateInventoryItem(id, itemAfter);;
+                System.out.println("Changes applied");
+            }
+            else {
+                System.out.println("Changes discarded");
+            }
+
+            displayReturnCommand("Update", () -> displayCreate());
+        }
     }
 
     private void displayDelete() {
@@ -181,7 +228,7 @@ public class InventoryViewCLI implements InventoryView {
 
     private void displayReturnCommand(String actionName, Runnable action) {
         System.out.println();
-        System.out.println(actionName + " another item? [y/n]");
+        System.out.println(actionName + " again? [y/n]");
         if(scanner.nextLine().toLowerCase().equals("y")) {
             action.run();
         }

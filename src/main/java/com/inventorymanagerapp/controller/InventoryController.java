@@ -17,6 +17,11 @@ public class InventoryController {
         return items;
     }
 
+    public InventoryItem getItemById(String id) {
+        InventoryItem item = inventoryRepository.findById(id);
+        return item;
+    }
+
     public void addInventoryItem(InventoryItem item) {
         inventoryRepository.create(item);
     }
@@ -25,8 +30,7 @@ public class InventoryController {
         inventoryRepository.delete(id);
     }
 
-    public InventoryItem getItemById(String id) {
-        InventoryItem item = inventoryRepository.findById(id);
-        return item;
+    public void updateInventoryItem(String id, InventoryItem item) {
+        inventoryRepository.update(id, item);
     }
 }
