@@ -77,7 +77,10 @@ public class InventoryViewCLI implements InventoryView {
 
         System.out.println();
         System.out.println("Please enter quantity, then [enter]");
-        int quantity = Integer.parseInt(scanner.nextLine());
+        String quantityString = scanner.nextLine();
+        int quantity = (quantityString != null && quantityString != "") 
+            ? Integer.parseInt(scanner.nextLine())
+            : 0;
 
         System.out.println();
         InventoryItem newItem = new InventoryItem(name, quantity);
@@ -94,7 +97,7 @@ public class InventoryViewCLI implements InventoryView {
             System.out.println("Item discarded");
         }
 
-        displayReturnCommand("Create", () -> displayCreate());
+        displayReturnCommand(() -> displayCreate());
     }
 
     private void displayRead() {
@@ -128,7 +131,7 @@ public class InventoryViewCLI implements InventoryView {
             System.out.println("No items match the condition");
         }
     
-        displayReturnCommand("Read", () -> displayRead());
+        displayReturnCommand(() -> displayRead());
     }    
 
     private void displayUpdate() {
@@ -178,7 +181,7 @@ public class InventoryViewCLI implements InventoryView {
                 System.out.println("Changes discarded");
             }
 
-            displayReturnCommand("Update", () -> displayCreate());
+            displayReturnCommand(() -> displayUpdate());
         }
     }
 
@@ -206,7 +209,7 @@ public class InventoryViewCLI implements InventoryView {
             }
         }
 
-        displayReturnCommand("Delete", () -> displayDelete());
+        displayReturnCommand(() -> displayDelete());
     }
 
     private void displayHelp() {
@@ -226,9 +229,9 @@ public class InventoryViewCLI implements InventoryView {
         System.out.println();
     }
 
-    private void displayReturnCommand(String actionName, Runnable action) {
+    private void displayReturnCommand(Runnable action) {
         System.out.println();
-        System.out.println(actionName + " again? [y/n]");
+        System.out.println("Repeat last action? [y/n]");
         if(scanner.nextLine().toLowerCase().equals("y")) {
             action.run();
         }
